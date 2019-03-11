@@ -1,5 +1,5 @@
-# This doesn't need to be followed exactly. It's just to help get things started and hopefully point in the right direction
-# You can edit this as you see fit also if you want to clarify anything just reach out
+This doesn't need to be followed exactly. It's just to help get things started and hopefully point in the right direction
+You can edit this as you see fit also if you want to clarify anything just reach out
 
 # Table of Contents
 
