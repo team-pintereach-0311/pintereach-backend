@@ -59,7 +59,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
 - Explanation: returns all users
 
 
-- Extra [ ] GET `/users/:id` Require AUTHORIZATION AND AUTHENTICATION(admin and/or self-user only)
+- [ ] Extra GET `/users/:id` Require AUTHORIZATION AND AUTHENTICATION(admin and/or self-user only)
 
 - Explanation: returns single user
 - Rule: User is only able to view user attributes if they belong to user logged in. Admin can view user attributes of any user.
@@ -89,7 +89,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
 - Rule2: If you provide the categories array, you must ALSO provide the category_id's that were already stored in the backend IF YOU       WANT TO KEEP THEM. (examples: `current -> changes -> result... ([1, 3] -> [2] -> [2]) || ([1,3] -> [1,2,3] -> [1,2,3])`)
 
 
--Extra  [ ] DELETE `/users/:id` Requires AUTHORIZATION
+- [ ] Extra DELETE `/users/:id` Requires AUTHORIZATION
 
 - Explanation: remove your own user account from the database
 - Note: Only SAME USER or ADMIN can delete the user account (not other users)
@@ -107,16 +107,16 @@ As a researcher, it's difficult to keep track of articles you want to read later
 - Explanation: Returns the names of all the articles
 
 
-- Extra [ ] GET `/categories/:id` Requires AUTHORIZATION
+- [ ] Extra GET `/categories/:id` Requires AUTHORIZATION
 - Explanation: Returns the category details
 
 
-- Extra [ ] PUT `/categories/:id` Requires AUTHORIZATION and AUTHENTICATION
+- [ ] Extra PUT `/categories/:id` Requires AUTHORIZATION and AUTHENTICATION
 - Explanation - removes categories and the relationships they have to articles on user boards
 
 
 
-- Extra [ ] DELETE `/categories/:id` Requires AUTHORIZATION and AUTHENTICATION
+- [ ] Extra DELETE `/categories/:id` Requires AUTHORIZATION and AUTHENTICATION
 - Explanation - removes categories and the relationships they have to articles on user boards
 
 
