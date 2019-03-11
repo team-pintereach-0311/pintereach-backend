@@ -1,6 +1,29 @@
 This doesn't need to be followed exactly. It's just to help get things started and hopefully point in the right direction
 You can edit this as you see fit also if you want to clarify anything just reach out
 
+##### Git Instructions
+
+- Every backend developer will be working in this repo, but on separate branches.
+
+- After git cloning THIS repo:
+   - `git checkout master` <---- Puts you on master branch.
+
+   - You may need to `git pull` before creating a new branch. <--- Git pull fetches and downloads from the branch you are in and merges    it with local repo
+   
+  - `git branch [firstname-lastname]` <-----  Creates the branch with your first and last name as branch name. 
+     
+  - `git checkout [firstname-lastname]` <---- Switches your working directory into your newly created branch.
+  
+  - `git push -u origin [firstname-lastname]` <-- Pushes that branch to GitHub.
+      - Subsequent pushes after the above push can be done with `git push [firstname-lastname]`.
+   
+   - You can then `git commit` into that branch with all your changes.
+
+   - **Once you have a fully functional feature:**
+      -  `git merge master` <---- Merges your branch to the master repo.
+      -  We will help resolve merge conflicts if they come up.
+
+
 # Table of Contents
 
 - [Reference Links](#Reference)
