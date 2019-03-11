@@ -46,7 +46,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
 
 > /auth <a name="AuthEnd"></a>
 
-- [] POST `/auth/register`
+- [ ] POST `/auth/register`
 
   - Example: Send
 
@@ -77,7 +77,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
   ]
   ```
 
-- [] POST `/auth/login`
+- [ ] POST `/auth/login`
 
   - Example: Send
 
@@ -107,7 +107,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
 
 > /users <a name="UsersEnd"></a>
 
-- [] GET `/users` Requires AUTHORIZATION
+- [ ] GET `/users` Requires AUTHORIZATION
 - Explanation: returns all users
 
   - Example: Send
@@ -143,7 +143,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
   ]
   ```
 
-- [] GET `/users/:id` Require AUTHORIZATION AND AUTHENTICATION(admin and/or self-user only)
+- [ ] GET `/users/:id` Require AUTHORIZATION AND AUTHENTICATION(admin and/or self-user only)
 
 - Explanation: returns single user
 - Rule: User is only able to view user attributes if they belong to user logged in. Admin can view user attributes of any user.
@@ -191,7 +191,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
   ]
   ```
 
-- [] GET `/users/:id/articles`
+- [ ] GET `/users/:id/articles`
 
 - Explanation: Returns a single user with all articles
 
@@ -264,7 +264,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
   }
   ```
 
-- [] Post `/users/articles` Requires AUTHORIZATION
+- [ ] Post `/users/articles` Requires AUTHORIZATION
 
 - Explanation: add article to your user board
 - Rule: Can only add articles on your own user boards... not other use boards (this includes admins)
@@ -317,7 +317,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
   ]
   ```
 
-- [] Post `/users/:id/categories` Requires AUTHORIZATION and AUTHENTICATION
+- [ ] Post `/users/:id/categories` Requires AUTHORIZATION and AUTHENTICATION
 
 - Explanation: Creates a category
 - Rule: `user_id` must match the user `:id` in the axios url
@@ -350,7 +350,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
   ]
   ```
 
-- [] PUT `/users/:id` Requires AUTHORIZATION and AUTHENTICATION
+- [ ] PUT `/users/:id` Requires AUTHORIZATION and AUTHENTICATION
 
 - Explanation: edit any user key/value pairs (including password)
 - Note: Only SAME USER or ADMIN can change the user attributes (not other users)
@@ -407,7 +407,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
 
   ```
 
-- [] PUT `/users/:userid/articles/:id` Requires AUTHORIZATION
+- [ ] PUT `/users/:userid/articles/:id` Requires AUTHORIZATION
 
 - Explanation: edits the article that belongs to the user
 - Rule: You must be the owner of the article or an admin to edit it
@@ -478,7 +478,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
   ]
   ```
 
-- [] DELETE `/users/:id` Requires AUTHORIZATION
+- [ ] DELETE `/users/:id` Requires AUTHORIZATION
 
 - Explanation: remove your own user account from the database
 - Note: Only SAME USER or ADMIN can delete the user account (not other users)
@@ -511,7 +511,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
   ]
   ```
 
-- [] DELETE `/users/:userid/articles/:id'` Requires AUTHORIZATION
+- [ ] DELETE `/users/:userid/articles/:id'` Requires AUTHORIZATION
 
 - Explanation: remove a single article from the user board
 - Note: Can only delete an article belonging to your own user account (unless you are admin)
@@ -543,7 +543,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
 
 > Categories <a name="CategoriesEnd"></a>
 
-- [] GET `/categories` Requires AUTHORIZATION
+- [ ] GET `/categories` Requires AUTHORIZATION
 - Explanation: Returns the names of all the articles
 
   - Example: Send
@@ -576,7 +576,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
   ]
   ```
 
-- [] GET `/categories/:id` Requires AUTHORIZATION
+- [ ] GET `/categories/:id` Requires AUTHORIZATION
 - Explanation: Returns the category details
 - Rule: The user_id is only returned if the user is an admin.
 
@@ -617,7 +617,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
   ]
   ```
 
-- [] PUT `/categories/:id` Requires AUTHORIZATION and AUTHENTICATION
+- [ ] PUT `/categories/:id` Requires AUTHORIZATION and AUTHENTICATION
 - Explanation - removes categories and the relationships they have to articles on user boards
 - Rule: Only admins can edit categories
 
@@ -664,7 +664,7 @@ As a researcher, it's difficult to keep track of articles you want to read later
   ]
   ```
 
-- [] DELETE `/categories/:id` Requires AUTHORIZATION and AUTHENTICATION
+- [ ] DELETE `/categories/:id` Requires AUTHORIZATION and AUTHENTICATION
 - Explanation - removes categories and the relationships they have to articles on user boards
 - Rule: Only admins can delete categories (since they are shared accross user boards)
 
