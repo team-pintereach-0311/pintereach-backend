@@ -1,7 +1,7 @@
 const { authenticate } = require("../auth/authenticate");
 
-const { login } = require("../routes/login/login");
-const { register } = require("../routes/register/register");
+const { login } = require("../routes/Auth/login");
+const { register } = require("../routes/Auth/register");
 
 module.exports = server => {
   server.post("/auth/register", register);
