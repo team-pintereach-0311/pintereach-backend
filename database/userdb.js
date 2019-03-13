@@ -4,11 +4,12 @@ module.exports = {
   get,
   getById,
   add,
-  find,
   findBy,
-  findById,
   getUserArticles,
-  addarticle
+  addarticle,
+  getCategories,
+  getCategoriesArticles,
+  categoryfindBy
 };
 
 function get() {
@@ -27,10 +28,6 @@ function getArticleById(id) {
     .first();
 }
 
-function find() {
-  return db("users").select("id", "username", "password");
-}
-
 function findBy(filter) {
   return db("users").where(filter);
 }
@@ -38,23 +35,20 @@ function findBy(filter) {
 async function add(user) {
   const [id] = await db("users").insert(user);
 
-  return findById(id);
-}
-
-function findById(id) {
-  return db("users")
-    .where({ id })
-    .first();
+  return getById(id);
 }
 
 function getUserArticles(userId) {
   return db("articles as a")
     .join("users as u", "u.id", "a.user_id")
+    .join("articles_categories_relationship as ac", "a.id", "ac.articles_id")
+    .join("categories as c", "ac.categories_id", "c.id")
     .select(
       "a.id",
       "a.title",
       "a.cover_page",
       "a.link",
+      "c.name as category_name",
       "u.username as postedBy"
     )
     .where("a.user_id", userId);
@@ -66,4 +60,20 @@ function addarticle(params) {
     .then(ids => {
       return getArticleById(ids[0]);
     });
+}
+
+function getCategories() {
+  return db("categories").select("categories.name");
+}
+
+function getCategoriesArticles(params) {
+  return db("categories as c")
+    .join("articles_categories_relationship as ac", "ac.categories_id", "c.id")
+    .join("articles as a", "a.id", "ac.articles_id")
+    .select("a.id", "a.title", "a.cover_page", "a.link")
+    .where("c.name", params);
+}
+
+function categoryfindBy(filter) {
+  return db("categories as c").where("c.name", filter);
 }
