@@ -22,23 +22,28 @@ function getAllUsers(req, res) {
 
 function getUserByIdArticles(req, res) {
   const { id } = req.params;
-  db.getUserArticles(id)
-    .then(user => {
-      if (user.length === 0) {
-        res.status(404).json({
-          message: "That user does not exist."
-        });
-        return;
-      }
-      res.json({ user });
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json({
-        error: "User posts could not be retrived"
+
+  db.getById(id).then(user => {
+    if (!user) {
+      res.status(404).json({
+        message: "The user with the specified ID does not exist."
       });
       return;
-    });
+    } else {
+      db.getUserArticles(id)
+        .then(user => {
+          res.status(200).json(user);
+          return;
+        })
+        .catch(error => {
+          console.log(error);
+          res.status(500).json({
+            error: "User posts could not be retrived"
+          });
+          return;
+        });
+    }
+  });
 }
 
 function postArticles(req, res) {
