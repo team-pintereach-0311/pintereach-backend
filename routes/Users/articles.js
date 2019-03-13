@@ -1,7 +1,8 @@
 module.exports = {
   getAllUsers,
   getUserByIdArticles,
-  postArticles
+  postArticles,
+  removeArticle
 };
 
 const db = require("../../database/userdb");
@@ -38,7 +39,7 @@ function getUserByIdArticles(req, res) {
         .catch(error => {
           console.log(error);
           res.status(500).json({
-            error: "User posts could not be retrived"
+            error: "User article could not be retrived"
           });
           return;
         });
@@ -88,7 +89,28 @@ function postArticles(req, res) {
     .catch(error => {
       console.log(error);
       res.status(500).json({
-        error: "The posts information could not be retrieved."
+        error: "The article information could not be retrieved."
+      });
+      return;
+    });
+}
+
+function removeArticle(req, res) {
+  const { id } = req.params;
+  db.deleteArticleById(id)
+    .then(response => {
+      if (response === 0) {
+        res.status(404).json({
+          message: "The artical with the specified ID does not exist."
+        });
+        return;
+      }
+      res.json({ success: `artical ${id} removed.` });
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        error: "The artical could not be removed"
       });
       return;
     });

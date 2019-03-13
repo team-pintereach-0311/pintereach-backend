@@ -7,6 +7,8 @@ const { postArticles } = require("../routes/Users/articles");
 const {
   getArticlesByCategoryName
 } = require("../routes/Categories/categories");
+const { getCategoryNames } = require("../routes/Categories/categories");
+const { removeArticle } = require("../routes/Users/articles");
 
 module.exports = server => {
   server.post("/auth/register", register);
@@ -19,4 +21,6 @@ module.exports = server => {
     authenticate,
     getArticlesByCategoryName
   );
+  server.get("/categories", authenticate, getCategoryNames);
+  server.delete("/users/:userid/articles/:id", authenticate, removeArticle);
 };

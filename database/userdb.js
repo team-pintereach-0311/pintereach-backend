@@ -9,7 +9,8 @@ module.exports = {
   addarticle,
   getCategories,
   getCategoriesArticles,
-  categoryfindBy
+  categoryfindBy,
+  deleteArticleById
 };
 
 function get() {
@@ -38,20 +39,27 @@ async function add(user) {
   return getById(id);
 }
 
+// function getUserArticles(userId){
+//   return db('articles')
+// }
+
 function getUserArticles(userId) {
-  return db("articles as a")
-    .join("users as u", "u.id", "a.user_id")
-    .join("articles_categories_relationship as ac", "a.id", "ac.articles_id")
-    .join("categories as c", "ac.categories_id", "c.id")
-    .select(
-      "a.id",
-      "a.title",
-      "a.cover_page",
-      "a.link",
-      "c.name as category_name",
-      "u.username as postedBy"
-    )
-    .where("a.user_id", userId);
+  return (
+    db("articles as a")
+      .join("users as u", "u.id", "a.user_id")
+      //.join("articles_categories_relationship as ac", "a.id", "ac.articles_id")
+      //.join("categories as c", "ac.categories_id", "c.id")
+      .select(
+        "u.id as userid",
+        "a.id",
+        "a.title",
+        "a.cover_page",
+        "a.link",
+        //"c.name as category_name",
+        "u.username as postedBy"
+      )
+      .where("a.user_id", userId)
+  );
 }
 
 function addarticle(params) {
@@ -76,4 +84,10 @@ function getCategoriesArticles(params) {
 
 function categoryfindBy(filter) {
   return db("categories as c").where("c.name", filter);
+}
+
+function deleteArticleById(id) {
+  return db("articles")
+    .where("id", id)
+    .del();
 }

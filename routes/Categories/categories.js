@@ -1,4 +1,4 @@
-module.exports = { getArticlesByCategoryName };
+module.exports = { getArticlesByCategoryName, getCategoryNames };
 
 const db = require("../../database/userdb");
 
@@ -27,4 +27,19 @@ function getArticlesByCategoryName(req, res) {
         });
     }
   });
+}
+
+function getCategoryNames(req, res) {
+  db.getCategories()
+    .then(data => {
+      res.status(200).json(data);
+      return;
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        error: "Categories could not be retrived"
+      });
+      return;
+    });
 }
