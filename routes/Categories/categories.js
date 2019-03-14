@@ -45,7 +45,8 @@ function getCategoryNames(req, res) {
 }
 
 function addCategory(req, res) {
-  const { name, user_id } = req.body;
+  const { name } = req.body;
+  const { user_id } = req.params;
   if (!name || !user_id) {
     res.status(400).json({
       errorMessage: "Please provide name and user id for the category."

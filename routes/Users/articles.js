@@ -97,6 +97,8 @@ function postArticles(req, res) {
 
 function removeArticle(req, res) {
   const { id } = req.params;
+  const { userid } = req.body;
+
   db.deleteArticleById(id)
     .then(response => {
       if (response === 0) {
@@ -105,7 +107,7 @@ function removeArticle(req, res) {
         });
         return;
       }
-      res.json({ success: `artical ${id} removed.` });
+      res.status(200).json({ message: `artical ${id} removed.` });
     })
     .catch(error => {
       console.log(error);

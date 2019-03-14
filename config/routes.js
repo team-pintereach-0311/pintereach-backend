@@ -14,7 +14,7 @@ const { addCategory } = require("../routes/Categories/categories");
 module.exports = server => {
   server.post("/auth/register", register);
   server.post("/auth/login", login);
-  server.post("/users/articles", postArticles);
+  server.post("/users/articles", authenticate, postArticles);
   //server.get("/", authenticate, users);
   server.get("/users/:id/articles", authenticate, getUserByIdArticles);
   server.get(

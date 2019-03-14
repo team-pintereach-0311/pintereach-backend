@@ -61,14 +61,20 @@ function getUserArticles(userId) {
     .where("a.user_id", userId);
 }
 
-async function addarticle(params) {
-  const ids = await db("articles").insert(params);
-  return getArticleById(ids[0]);
+function addarticle(params) {
+  return db("articles")
+    .insert(params)
+    .then(ids => {
+      return getArticleById(ids[0]);
+    });
 }
 
-async function addCategory(params) {
-  const ids = await db("categories").insert(params);
-  return getArticleById(ids[0]);
+function addCategory(params) {
+  return db("categories")
+    .insert(params)
+    .then(ids => {
+      return getArticleById(ids[0]);
+    });
 }
 
 function getCategories() {
