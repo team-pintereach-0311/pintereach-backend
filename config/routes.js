@@ -24,5 +24,5 @@ module.exports = server => {
   );
   server.get("/categories", authenticate, getCategoryNames);
   server.delete("/users/:userid/articles/:id", authenticate, removeArticle);
-  server.post("/users/:id/articles/category", authenticate, addCategory);
+  server.post("/users/:user_id/articles/category", authenticate, addCategory);
 };
