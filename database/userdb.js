@@ -10,7 +10,8 @@ module.exports = {
   getCategories,
   getCategoriesArticles,
   categoryfindBy,
-  deleteArticleById
+  deleteArticleById,
+  addCategory
 };
 
 function get() {
@@ -64,6 +65,14 @@ function getUserArticles(userId) {
 
 function addarticle(params) {
   return db("articles")
+    .insert(params)
+    .then(ids => {
+      return getArticleById(ids[0]);
+    });
+}
+
+function addCategory(params) {
+  return db("categories")
     .insert(params)
     .then(ids => {
       return getArticleById(ids[0]);
