@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
     table.string("title");
     table.string("cover_page");
     table.text("link");
+    table.boolean("is_public");
     table.timestamps(false, true);
   });
 };

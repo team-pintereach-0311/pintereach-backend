@@ -45,42 +45,34 @@ async function add(user) {
 // }
 
 function getUserArticles(userId) {
-  return (
-    db("articles as a")
-      .join("users as u", "u.id", "a.user_id")
-      //.join("articles_categories_relationship as ac", "a.id", "ac.articles_id")
-      //.join("categories as c", "ac.categories_id", "c.id")
-      .select(
-        "u.id as userid",
-        "a.id",
-        "a.title",
-        "a.cover_page",
-        "a.link",
-        //"c.name as category_name",
-        "u.username as postedBy"
-      )
-      .where("a.user_id", userId)
-  );
+  return db("articles as a")
+    .join("users as u", "u.id", "a.user_id")
+    .join("articles_categories_relationship as ac", "a.id", "ac.articles_id")
+    .join("categories as c", "ac.categories_id", "c.id")
+    .select(
+      "u.id as userid",
+      "a.id",
+      "a.title",
+      "a.cover_page",
+      "a.link",
+      "c.name as category_name",
+      "u.username as postedBy"
+    )
+    .where("a.user_id", userId);
 }
 
-function addarticle(params) {
-  return db("articles")
-    .insert(params)
-    .then(ids => {
-      return getArticleById(ids[0]);
-    });
+async function addarticle(params) {
+  const ids = await db("articles").insert(params);
+  return getArticleById(ids[0]);
 }
 
-function addCategory(params) {
-  return db("categories")
-    .insert(params)
-    .then(ids => {
-      return getArticleById(ids[0]);
-    });
+async function addCategory(params) {
+  const ids = await db("categories").insert(params);
+  return getArticleById(ids[0]);
 }
 
 function getCategories() {
-  return db("categories").select("categories.name");
+  return db("categories").select("id", "categories.name");
 }
 
 function getCategoriesArticles(params) {
