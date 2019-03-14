@@ -1,4 +1,9 @@
-module.exports = { getArticlesByCategoryName, getCategoryNames, addCategory };
+module.exports = {
+  getArticlesByCategoryName,
+  getCategoryNames,
+  addCategory,
+  getUserCategories
+};
 
 const db = require("../../database/userdb");
 
@@ -67,4 +72,29 @@ function addCategory(req, res) {
       });
       return;
     });
+}
+
+function getUserCategories(req, res) {
+  const { id } = req.params;
+  db.getById(id).then(user => {
+    if (!user) {
+      res.status(404).json({
+        message: "The user with the specified ID does not exist."
+      });
+      return;
+    } else {
+      db.getUserCategories(id)
+        .then(user => {
+          res.status(200).json(user);
+          return;
+        })
+        .catch(error => {
+          console.log(error);
+          res.status(500).json({
+            error: "User article could not be retrived"
+          });
+          return;
+        });
+    }
+  });
 }

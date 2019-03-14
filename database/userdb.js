@@ -11,7 +11,8 @@ module.exports = {
   getCategoriesArticles,
   categoryfindBy,
   deleteArticleById,
-  addCategory
+  addCategory,
+  getUserCategories
 };
 
 function get() {
@@ -20,13 +21,13 @@ function get() {
 
 function getById(id) {
   return db("users")
-    .where({ id })
+    .where("id", id)
     .first();
 }
 
 function getArticleById(id) {
   return db("articles")
-    .where({ id })
+    .where("id", id)
     .first();
 }
 
@@ -87,6 +88,10 @@ function getCategoriesArticles(params) {
     .join("articles as a", "a.id", "ac.articles_id")
     .select("a.id", "a.title", "a.cover_page", "a.link")
     .where("c.name", params);
+}
+
+function getUserCategories(params) {
+  return db("categories").where("user_id", params);
 }
 
 function categoryfindBy(filter) {
