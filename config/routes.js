@@ -8,17 +8,20 @@ const { postArticles } = require("../routes/Users/articles");
 const {
   getArticlesByCategoryName
 } = require("../routes/Categories/categories");
+const { updateArticle } = require("../routes/Users/articles");
 const { getCategoryNames } = require("../routes/Categories/categories");
 const { removeArticle } = require("../routes/Users/articles");
 const { addCategory } = require("../routes/Categories/categories");
 const { getUserCategories } = require("../routes/Categories/categories");
 const { updateCategoryName } = require("../routes/Categories/categories");
+const { getAllArticles } = require("../routes/Users/articles");
 
 module.exports = server => {
   server.post("/auth/register", register);
   server.post("/auth/login", login);
   server.get("/users", authenticate, getAllUsers);
   server.post("/users/articles", authenticate, postArticles);
+  server.get("/users/articles", authenticate, getAllArticles);
   //server.get("/", authenticate, users);
   server.get("/users/:id/articles", authenticate, getUserByIdArticles);
   server.get(
@@ -40,5 +43,11 @@ module.exports = server => {
     authenticate,
     isUserOrAdmin,
     updateCategoryName
+  );
+  server.put(
+    "/users/:userid/articles/:id",
+    authenticate,
+    isUserOrAdmin,
+    updateArticle
   );
 };

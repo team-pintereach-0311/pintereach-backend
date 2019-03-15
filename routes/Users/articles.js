@@ -2,7 +2,9 @@ module.exports = {
   getAllUsers,
   getUserByIdArticles,
   postArticles,
-  removeArticle
+  removeArticle,
+  updateArticle,
+  getAllArticles
 };
 
 const db = require("../../database/userdb");
@@ -12,6 +14,21 @@ function getAllUsers(req, res) {
     .then(users => {
       users = users.map(({ username }) => username);
       res.status(200).json(users);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        error: "User list could not be retrieved."
+      });
+      return;
+    });
+}
+
+function getAllArticles(req, res) {
+  db.get()
+    .then(data => {
+      //users = users.map(({ username }) => username);
+      res.status(200).json(data);
     })
     .catch(error => {
       console.log(error);
@@ -116,6 +133,40 @@ function removeArticle(req, res) {
       console.log(error);
       res.status(500).json({
         error: "The artical could not be removed"
+      });
+      return;
+    });
+}
+
+function updateArticle(req, res) {
+  const { id } = req.params;
+  const { title, cover_page, link, categories_id, is_public } = req.body;
+  if (!title && !link) {
+    res.status(400).json({
+      errorMessage: "Please provide title or link for the article."
+    });
+    return;
+  }
+  db.updateArticle(id, {
+    title,
+    link,
+    cover_page,
+    is_public
+  })
+    .then(response => {
+      db.changeToCategory(id, { categories_id })
+        .then(data => {
+          console.log(data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      res.status(201).json(response);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        error: "There was an error while saving the post to the database"
       });
       return;
     });

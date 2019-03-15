@@ -14,7 +14,10 @@ module.exports = {
   addCategory,
   getUserCategories,
   addToCategory,
-  updateCategory
+  updateCategory,
+  updateArticle,
+  changeToCategory,
+  getAllArticles
 };
 
 function get() {
@@ -64,20 +67,20 @@ function getUserArticles(userId) {
     .where("a.user_id", userId);
 }
 
-function addarticle(params) {
-  return db("articles")
-    .insert(params)
-    .then(ids => {
-      return getArticleById(ids[0]);
-    });
+async function addarticle(params) {
+  const ids = await db("articles").insert(params);
+  return getArticleById(ids[0]);
 }
 
-function addCategory(params) {
-  return db("categories")
-    .insert(params)
-    .then(ids => {
-      return getArticleById(ids[0]);
-    });
+function updateArticle(id, changes) {
+  return db("articles")
+    .update(changes)
+    .where({ id });
+}
+
+async function addCategory(params) {
+  const ids = await db("categories").insert(params);
+  return getArticleById(ids[0]);
 }
 
 function getCategories() {
@@ -90,6 +93,10 @@ function getCategoriesArticles(params) {
     .join("articles as a", "a.id", "ac.articles_id")
     .select("a.id", "a.title", "a.cover_page", "a.link")
     .where("c.name", params);
+}
+
+function getAllArticles(params) {
+  return db("articles");
 }
 
 function getUserCategories(params) {
@@ -106,12 +113,16 @@ function deleteArticleById(id) {
     .del();
 }
 
-function addToCategory(params) {
-  return db("articles_categories_relationship")
-    .insert(params)
-    .then(ids => {
-      return;
-    });
+async function addToCategory(params) {
+  const ids = await db("articles_categories_relationship").insert(params);
+  return;
+}
+
+async function changeToCategory(articleid, changes) {
+  const ids = await db("articles_categories_relationship")
+    .update(changes)
+    .where("articles_id", articleid);
+  return;
 }
 
 function updateCategory(id, changes) {
