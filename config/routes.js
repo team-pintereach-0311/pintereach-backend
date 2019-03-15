@@ -3,6 +3,7 @@ const { isUserOrAdmin } = require("../middleware/verifyuser");
 const { login } = require("../routes/Auth/login");
 const { register } = require("../routes/Auth/register");
 const { getUserByIdArticles } = require("../routes/Users/articles");
+const { getAllUsers } = require("../routes/Users/articles");
 const { postArticles } = require("../routes/Users/articles");
 const {
   getArticlesByCategoryName
@@ -16,6 +17,7 @@ const { updateCategoryName } = require("../routes/Categories/categories");
 module.exports = server => {
   server.post("/auth/register", register);
   server.post("/auth/login", login);
+  server.get("/users", authenticate, getAllUsers);
   server.post("/users/articles", authenticate, postArticles);
   //server.get("/", authenticate, users);
   server.get("/users/:id/articles", authenticate, getUserByIdArticles);

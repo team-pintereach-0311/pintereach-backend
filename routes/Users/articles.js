@@ -10,7 +10,8 @@ const db = require("../../database/userdb");
 function getAllUsers(req, res) {
   db.get()
     .then(users => {
-      res.json(users.username);
+      users = users.map(({ username }) => username);
+      res.status(200).json(users);
     })
     .catch(error => {
       console.log(error);
