@@ -7,7 +7,10 @@ exports.up = function(knex, Promise) {
       .references("articles.id")
       .onDelete("CASCADE");
     table.integer("categories_id").unsigned();
-    table.foreign("categories_id").references("categories.id");
+    table
+      .foreign("categories_id")
+      .references("categories.id")
+      .onUpdate("NO ACTION");
   });
 };
 
