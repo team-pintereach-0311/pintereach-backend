@@ -2,7 +2,8 @@ module.exports = {
   getArticlesByCategoryName,
   getCategoryNames,
   addCategory,
-  getUserCategories
+  getUserCategories,
+  updateCategoryName
 };
 
 const db = require("../../database/userdb");
@@ -11,7 +12,6 @@ function getArticlesByCategoryName(req, res) {
   const { name } = req.params;
 
   db.categoryfindBy(name).then(data => {
-    console.log(data);
     if (data === undefined || data.length == 0) {
       res.status(404).json({
         message: "The category with the specified name does not exist."
@@ -97,4 +97,28 @@ function getUserCategories(req, res) {
         });
     }
   });
+}
+
+function updateCategoryName(req, res) {
+  const { name } = req.body;
+  const { id } = req.params;
+  if (!name || !id) {
+    res.status(400).json({
+      errorMessage: "Please provide new name and id of the category."
+    });
+    return;
+  }
+  db.updateCategory(id, {
+    name
+  })
+    .then(response => {
+      res.status(201).json(response);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({
+        error: "There was an error while saving the post to the database"
+      });
+      return;
+    });
 }

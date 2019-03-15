@@ -48,7 +48,7 @@ function getUserByIdArticles(req, res) {
 }
 
 function postArticles(req, res) {
-  const { title, cover_page, link, user_id } = req.body;
+  const { title, cover_page, link, user_id, categories_id } = req.body;
   if (!title && !link) {
     res.status(400).json({
       errorMessage: "Please provide title or link for the article."
@@ -76,6 +76,8 @@ function postArticles(req, res) {
         cover_page
       })
         .then(response => {
+          articles_id = response.id;
+          db.addToCategory({ articles_id, categories_id });
           res.status(201).json(response);
         })
         .catch(error => {

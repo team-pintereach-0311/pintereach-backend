@@ -1,5 +1,5 @@
-const { authenticate } = require("../auth/authenticate");
-
+const { authenticate } = require("../middleware/authenticate");
+const { isUserOrAdmin } = require("../middleware/verifyuser");
 const { login } = require("../routes/Auth/login");
 const { register } = require("../routes/Auth/register");
 const { getUserByIdArticles } = require("../routes/Users/articles");
@@ -11,6 +11,7 @@ const { getCategoryNames } = require("../routes/Categories/categories");
 const { removeArticle } = require("../routes/Users/articles");
 const { addCategory } = require("../routes/Categories/categories");
 const { getUserCategories } = require("../routes/Categories/categories");
+const { updateCategoryName } = require("../routes/Categories/categories");
 
 module.exports = server => {
   server.post("/auth/register", register);
@@ -24,7 +25,18 @@ module.exports = server => {
     getArticlesByCategoryName
   );
   server.get("/categories", authenticate, getCategoryNames);
-  server.delete("/users/:userid/articles/:id", authenticate, removeArticle);
+  server.delete(
+    "/users/:userid/articles/:id",
+    authenticate,
+    isUserOrAdmin,
+    removeArticle
+  );
   server.post("/users/:user_id/articles/category", authenticate, addCategory);
   server.get("/categories/:id", authenticate, getUserCategories);
+  server.put(
+    "/categories/:id",
+    authenticate,
+    isUserOrAdmin,
+    updateCategoryName
+  );
 };

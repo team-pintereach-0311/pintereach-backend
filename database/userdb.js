@@ -12,7 +12,9 @@ module.exports = {
   categoryfindBy,
   deleteArticleById,
   addCategory,
-  getUserCategories
+  getUserCategories,
+  addToCategory,
+  updateCategory
 };
 
 function get() {
@@ -102,4 +104,18 @@ function deleteArticleById(id) {
   return db("articles")
     .where("id", id)
     .del();
+}
+
+function addToCategory(params) {
+  return db("articles_categories_relationship")
+    .insert(params)
+    .then(ids => {
+      return;
+    });
+}
+
+function updateCategory(id, changes) {
+  return db("categories")
+    .where({ id })
+    .update(changes);
 }
